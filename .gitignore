@@ -1,0 +1,27 @@
+__pycache__/
+*.pyc
+*.pyo
+
+# Environment / secrets
+.env
+.env.*
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Data cache (gitignored - can contain downloaded market data)
+data/*.json
+data/*.csv
+data/*.parquet
+
+# Flask instance folder (can contain config with secrets)
+instance/
+
+# Logs
+*.log
+
+# OS junk
+.DS_Store
+Thumbs.db

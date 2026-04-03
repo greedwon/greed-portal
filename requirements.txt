@@ -1,0 +1,18 @@
+# PYTHON DEPENDENCIES
+# Install with: pip install -r requirements.txt
+# (All of these are already available system-wide on this machine)
+
+# yfinance - pulls stock data (prices, fundamentals) from Yahoo Finance - no API key needed
+yfinance
+
+# Flask - lightweight web framework for the browser UI
+Flask
+
+# pandas - data manipulation and number crunching
+pandas
+
+# matplotlib - charting (for generating price charts later)
+matplotlib
+
+# requests - HTTP calls (useful for adding extra APIs later)
+requests

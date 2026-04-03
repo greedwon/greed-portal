@@ -1,0 +1,151 @@
+/* style.css - feel free to redesign however you want */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #0f0f0f;
+    color: #e8e8e8;
+    padding: 2rem;
+}
+
+.container {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 0.4rem;
+}
+
+.subtitle {
+    color: #888;
+    margin-bottom: 1.75rem;
+    font-size: 0.95rem;
+}
+
+.ticker {
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.error {
+    color: #f87171;
+    background: #1f1010;
+    border: 1px solid #4a1a1a;
+    border-radius: 6px;
+    padding: 0.6rem 0.8rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+
+/* Search form */
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.search-form input,
+.search-form select {
+    padding: 0.6rem 0.8rem;
+    border-radius: 6px;
+    border: 1px solid #2a2a2a;
+    background: #1a1a1a;
+    color: #e8e8e8;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.15s;
+}
+
+.search-form input:focus,
+.search-form select:focus {
+    border-color: #3b82f6;
+}
+
+.search-form input {
+    flex: 1;
+    min-width: 160px;
+}
+
+.search-form button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    border: none;
+    background: #3b82f6;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.search-form button:hover {
+    background: #2563eb;
+}
+
+/* Cards */
+.card {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-top: 1.25rem;
+}
+
+.card h2 {
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.9rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid #222;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+td:last-child {
+    text-align: right;
+    color: #ccc;
+}
+
+/* Signal badge */
+.signal {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.signal strong {
+    color: #a3e635;
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    color: #3b82f6;
+    text-decoration: none;
+    margin-bottom: 1.25rem;
+    font-size: 0.9rem;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}

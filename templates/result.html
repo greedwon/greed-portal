@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ data.symbol }} — Stock Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="back-link">&larr; New Search</a>
+
+        <h1>{{ data.name }}</h1>
+        <p class="ticker">{{ data.symbol }} &bull; {{ data.sector }}</p>
+
+        <div class="card">
+            <h2>Price &amp; Fundamentals</h2>
+            <table>
+                <tr>
+                    <td>Current Price</td>
+                    <td><strong>${{ data.price }}</strong></td>
+                </tr>
+                <tr>
+                    <td>Market Cap</td>
+                    <td>{{ data.market_cap }}</td>
+                </tr>
+                <tr>
+                    <td>P/E Ratio</td>
+                    <td>{{ data.pe_ratio if data.pe_ratio else 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td>52-Week High</td>
+                    <td>${{ data.week52_high }}</td>
+                </tr>
+                <tr>
+                    <td>52-Week Low</td>
+                    <td>${{ data.week52_low }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Technical Indicators</h2>
+            <table>
+                <tr>
+                    <td>RSI (14-day)</td>
+                    <td>{{ data.rsi }}</td>
+                </tr>
+                <tr>
+                    <td>SMA 20-day</td>
+                    <td>${{ data.sma20 }}</td>
+                </tr>
+                <tr>
+                    <td>SMA 50-day</td>
+                    <td>${{ data.sma50 }}</td>
+                </tr>
+            </table>
+            <p class="signal">Signal: <strong>{{ data.signal }}</strong></p>
+        </div>
+
+        <!-- Chart goes here in a future update -->
+
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
