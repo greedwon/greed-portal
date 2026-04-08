@@ -5,10 +5,37 @@ This is the brain of the app. It ties together fetching and indicators,
 then produces a clean summary dict that both the CLI and web UI can consume.
 
 Keeping this separate means we don't repeat the same logic in main.py and app.py.
+That principle is called "separation of concerns" -- GOOGLE that term, it's worth knowing.
 """
 
 from fetch import get_price_history, get_info, get_current_price
 from indicators import add_all_indicators
+
+
+def generate_signal(rsi, sma20, sma50):
+    """
+    Takes indicator values and returns a human-readable signal string.
+
+    Right now the logic is simple -- just RSI thresholds.
+    Over time you can make this smarter by combining multiple indicators.
+
+    Returns a string like "OVERSOLD - possible buy zone" or "NEUTRAL".
+
+    HINTS:
+    - RSI below 30 is generally considered oversold (possibly undervalued)
+    - RSI above 70 is generally considered overbought (possibly overvalued)
+    - Between 30-70 is neutral
+    - GOOGLE: "RSI trading signals" for more context
+    - Later you could add: if sma20 > sma50 it's called a "golden cross" (bullish)
+        and if sma20 < sma50 it's a "death cross" (bearish) -- GOOGLE both terms
+
+    TODO: replace 'pass' and the placeholder return with your logic.
+    Use if/elif/else -- you know how to do this from boot.dev.
+    """
+    # TODO: if rsi < 30, return an oversold message
+    # TODO: elif rsi > 70, return an overbought message
+    # TODO: else return "NEUTRAL"
+    pass
 
 
 def analyze(symbol, period="6mo"):
@@ -27,36 +54,37 @@ def analyze(symbol, period="6mo"):
       rsi          -- latest RSI value (float)
       sma20        -- latest 20-day SMA
       sma50        -- latest 50-day SMA
-      signal       -- simple string signal based on RSI
-      df           -- full price + indicator DataFrame (for charting later)
+      signal       -- a string signal from generate_signal()
+      df           -- the full DataFrame with all indicators (for charting later)
+
+    HINTS:
+    - df.iloc[-1] gets the last row of the DataFrame (most recent day's data).
+        GOOGLE: "pandas iloc" -- it's the main way to grab rows by position.
+    - latest.get("RSI", 0) safely gets the RSI value, returning 0 if it's missing.
+        This is dict-style access -- DataFrames support it too.
+    - round(float(value), 2) is just cleanup: convert to float, round to 2 decimals.
+    - info.get("longName", "N/A") does the same for the company info dict.
+
+    TODO: the function body is stubbed out for you below. Fill in the blanks.
     """
+    # These three lines are done -- they fetch the raw data. Don't touch them.
     info = get_info(symbol)
     df = get_price_history(symbol, period=period)
     df = add_all_indicators(df)
 
-    latest = df.iloc[-1]
-    rsi = round(float(latest.get("RSI", 0)), 2)
+    # TODO: get the last row of df (call it 'latest')
 
-    # Simple signal based on RSI - you can make this smarter over time
-    if rsi < 30:
-        signal = "OVERSOLD - possible buy zone"
-    elif rsi > 70:
-        signal = "OVERBOUGHT - possible sell zone"
-    else:
-        signal = "NEUTRAL"
+    # TODO: get the RSI value from latest -- round it to 2 decimal places
+    #       HINT: round(float(latest.get("RSI", 0)), 2)
 
-    return {
-        "symbol": symbol.upper(),
-        "name": info.get("longName", "N/A"),
-        "sector": info.get("sector", "N/A"),
-        "price": get_current_price(symbol),
-        "pe_ratio": info.get("trailingPE"),
-        "week52_high": info.get("fiftyTwoWeekHigh"),
-        "week52_low": info.get("fiftyTwoWeekLow"),
-        "market_cap": info.get("marketCap"),
-        "rsi": rsi,
-        "sma20": round(float(latest.get("SMA_20", 0)), 2),
-        "sma50": round(float(latest.get("SMA_50", 0)), 2),
-        "signal": signal,
-        "df": df,
-    }
+    # TODO: get sma20 from latest -- same pattern as rsi above (key is "SMA_20")
+
+    # TODO: get sma50 from latest (key is "SMA_50")
+
+    # TODO: call generate_signal(rsi, sma20, sma50) to get the signal string
+
+    # TODO: return a dict with all the fields listed in the docstring above
+    #       HINT: use info.get("keyName", "N/A") for company info fields
+    #       The yfinance keys are: longName, sector, trailingPE,
+    #       fiftyTwoWeekHigh, fiftyTwoWeekLow, marketCap
+    pass
