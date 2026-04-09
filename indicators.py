@@ -33,14 +33,6 @@ def simple_moving_average(df, window=20):
 
 def relative_strength_index(df, window=14):
     """
-    RSI - Relative Strength Index (0-100 scale).
-    Measures whether a stock is overbought (>70) or oversold (<30).
-    Most traders treat 30 as a potential buy signal, 70 as a potential sell.
-
-    Returns the DataFrame with a new column: 'RSI'.
-
-    THE MATH (follow these steps in order):
-
     Step 1 - Get daily price changes:
         delta = df["Close"].diff()
         GOOGLE: "pandas diff() method"
@@ -90,23 +82,18 @@ def bollinger_bands(df, window=20, num_std=2):
         'BB_middle'  -- the SMA (same as SMA_20)
         'BB_upper'   -- middle + (num_std * rolling standard deviation)
         'BB_lower'   -- middle - (num_std * rolling standard deviation)
-
-    HINTS:
-    - You already know how to do the rolling mean (same as SMA).
-    - For standard deviation: df["Close"].rolling(window=window).std()
-        GOOGLE: "standard deviation finance meaning" if you're fuzzy on what it means
-    - Upper = middle + (2 * std), Lower = middle - (2 * std)
-
-    TODO: implement this one once you've finished SMA and RSI.
-    GOOGLE: "Bollinger Bands explained" for context on how traders use them.
     """
-    # TODO: copy df
-    # TODO: calculate the rolling mean (middle band)
-    # TODO: calculate the rolling standard deviation
-    # TODO: calculate upper band (middle + num_std * std)
-    # TODO: calculate lower band (middle - num_std * std)
-    # TODO: assign all three to df and return it
-    pass
+    # copy df
+    df = df.copy()
+    #  calculate the rolling mean (middle band)
+    df["BB_middle"] = df["Close"].rolling(window=window).mean()
+    #  calculate the rolling standard deviation
+    std = df["Close"].rolling(window=window).std()
+    #  calculate upper band (middle + num_std * std)
+    df["BB_upper"] = df["BB_middle"] + (num_std * std)
+    #  calculate lower band (middle - num_std * std)
+    df["BB_lower"] = df["BB_middle"] - (num_std * std)
+    return df
 
 
 def add_all_indicators(df):
@@ -114,13 +101,14 @@ def add_all_indicators(df):
     Convenience function: adds all indicators to the DataFrame at once.
     Call this when you want a fully loaded dataset ready to analyze.
 
-    HINT: just call your three functions in sequence, passing df through each one.
-    Each function returns a new df, so chain them: df = function(df), then next, etc.
-
-    TODO: once bollinger_bands is implemented, add it here too.
     """
-    # TODO: call simple_moving_average with window=20
-    # TODO: call simple_moving_average with window=50
-    # TODO: call relative_strength_index
-    # TODO: return df
-    pass
+    #  call simple_moving_average with window=20
+    simple_moving_average(df, window=20)
+    #  call simple_moving_average with window=50
+    simple_moving_average(df, window=50)
+    #  call relative_strength_index
+    relative_strength_index(df)
+    #  call bollinger_bands
+    bollinger_bands(df)
+    #  return df
+    return df
